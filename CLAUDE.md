@@ -10,8 +10,8 @@ The repository is small enough to hold in your head:
 
 - `README.md` — the profile page body.
 - `header.svg` — the animated banner embedded by the README.
-- `profile/stats.svg` — the GitHub stats card. **Generated, not hand-edited** (see below).
-- `.github/workflows/grs.yml` — regenerates `profile/stats.svg` and commits it.
+- `profile/*.svg` — the stats and top-languages cards. **Generated, not hand-edited** (see below).
+- `.github/workflows/grs.yml` — regenerates the cards in `profile/` and commits them.
 - `.github/FUNDING.yml` — drives the "Sponsor" button (`github: [Naturalclar]`).
 
 ## header.svg
@@ -25,17 +25,27 @@ Two constraints follow from how GitHub serves this:
 
 `foreignObject` rendering varies by browser, so confirm changes by loading `header.svg` directly in a browser *and* by looking at the pushed README on GitHub — a local Markdown preview is not representative.
 
-## The stats card
+## The cards
 
-`profile/stats.svg` is a **build artifact that is committed to the repo**. `.github/workflows/grs.yml` runs `stats-organization/github-readme-stats-action`, writes the card to `profile/stats.svg`, and pushes the result back to the default branch — daily on a cron, or on demand via `workflow_dispatch`. The README embeds it by relative path, so the profile page serves a static file instead of calling an external service on every render.
+Everything under `profile/` is a **build artifact that is committed to the repo**. `.github/workflows/grs.yml` runs `stats-organization/github-readme-stats-action` once per card, writes each SVG into `profile/`, and pushes the result back to the default branch — daily on a cron, or on demand via `workflow_dispatch`. The README embeds them by relative path, so the profile page serves static files instead of calling an external service on every render.
 
-Consequences worth knowing before touching it:
+**Each card exists twice, once per colour scheme**, and the README chooses between them with `<picture>` + `prefers-color-scheme`:
 
-- **Never hand-edit `profile/stats.svg`.** The next workflow run overwrites it.
-- **Card appearance is configured in the workflow**, not the README — the `options` input is a `github-readme-stats` query string (currently `show_icons=true&theme=radical`). Changing the look means editing `grs.yml`.
+| Card | Dark (`theme=radical`) | Light (default theme) |
+| --- | --- | --- |
+| stats | `profile/stats.svg` | `profile/stats-light.svg` |
+| top languages | `profile/top-langs.svg` | `profile/top-langs-light.svg` |
+
+The `<source>` carries the dark variant and the `<img>` the light one, so light mode is also the fallback when `prefers-color-scheme` is unsupported. **Both `<picture>` blocks sit in one HTML block with no blank line between them** — that is what makes them render side by side. A blank line splits them into separate paragraphs and stacks them.
+
+Consequences worth knowing before touching any of this:
+
+- **Never hand-edit anything in `profile/`.** The next workflow run overwrites it.
+- **Card appearance is configured in the workflow**, not the README — the `options` input is a `github-readme-stats` query string. Changing the look means editing `grs.yml`, and a themed change usually means editing the dark *and* light step.
 - **A card change only appears after the workflow runs.** After merging an `options` change, trigger "Update README cards" manually rather than waiting for the cron.
-- **The commit step is intentionally tolerant of no-ops**: `git commit ... || exit 0` ends the step successfully when the regenerated card is byte-identical, so a run with no diff is not a failure.
-- `card: stats` is one of several types the action supports (`top-langs`, `pin`, `wakatime`, `gist`); adding another card means another step with its own `path`, plus an embed in the README.
+- **A newly added card's file does not exist until that run finishes**, so a README embed merged ahead of it renders broken in the meantime. Dispatch the workflow immediately after merging.
+- **The commit step is intentionally tolerant of no-ops**: `git commit ... || exit 0` ends the step successfully when the regenerated cards are byte-identical, so a run with no diff is not a failure. Its `git add profile/*.svg` already covers any new card, so adding one needs no change there.
+- `stats` and `top-langs` are two of the types the action supports (`pin`, `wakatime`, `gist` are the others); adding one means a step per colour scheme plus an embed in the README.
 
 ## Workflow
 

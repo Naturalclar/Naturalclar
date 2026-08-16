@@ -11,6 +11,7 @@ The repository is small enough to hold in your head:
 - `README.md` — the profile page body.
 - `header.svg` — the animated banner embedded by the README.
 - `profile/*.svg` — the stats and top-languages cards. **Generated, not hand-edited** (see below).
+- `x-logo.svg` / `x-logo-light.svg` — the X icon for the profile link. Hand-authored, unlike everything in `profile/`; they live at the root to keep that distinction obvious. Same `<picture>` pairing as the cards — the unsuffixed file is the dark-mode (light-coloured) variant.
 - `.github/workflows/grs.yml` — regenerates the cards in `profile/` and commits them.
 - `.github/FUNDING.yml` — drives the "Sponsor" button (`github: [Naturalclar]`).
 

@@ -8,8 +8,8 @@
         role="img"
         aria-labelledby="descId"
       >
-        <title id="titleId">Jesse Katsumata&#39;s GitHub Stats, Rank: A+</title>
-        <desc id="descId">Total Stars Earned: 583, Total Commits  (last year) : 276, Total PRs: 1825, Total Issues: 310, Contributed to (last year): 3</desc>
+        <title id="titleId">Naturalclar&#39;s GitHub Stats, Rank: A+</title>
+        <desc id="descId">Total Stars Earned: 583, Total Commits  (last year) : 276, Total PRs: 1827, Total Issues: 310, Contributed to (last year): 3</desc>
         <style>
           .header {
             font: 600 18px 'Segoe UI', Ubuntu, Sans-Serif;
@@ -73,7 +73,7 @@
         stroke-dashoffset: 251.32741228718345;
       }
       to {
-        stroke-dashoffset: 27.22131990261204;
+        stroke-dashoffset: 27.221319902594434;
       }
     }
   
@@ -126,7 +126,7 @@
         y="0"
         class="header"
         data-testid="header"
-      >Jesse Katsumata&#39;s GitHub Stats</text>
+      >Naturalclar&#39;s GitHub Stats</text>
     </g>
       </g>
     

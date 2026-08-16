@@ -25,6 +25,14 @@ Two constraints follow from how GitHub serves this:
 
 `foreignObject` rendering varies by browser, so confirm changes by loading `header.svg` directly in a browser *and* by looking at the pushed README on GitHub — a local Markdown preview is not representative.
 
+### The static fallback layer
+
+Because a renderer that ignores `foreignObject` would otherwise show a blank box, the file also holds a plain `<rect>` + two `<text>` lines **before** the `<foreignObject>`. They are painted underneath and hidden by the opaque gradient wherever `foreignObject` does render, so **the tagline now lives in two places** — change the `<h1>` and the `<text>` elements together, or the two renderings disagree.
+
+The fallback deliberately mirrors the real layout: the `<h1>` wraps to two lines at 800px wide, so the fallback is two lines at the same baselines, bold, with `textLength` pinning each line's width. `textLength` is what guarantees the text fits the 800px canvas whatever font the renderer actually has.
+
+To see the fallback locally, strip the `<foreignObject>` element out of a copy and open that copy — Chromium renders `foreignObject` fine, so nothing else reveals this layer.
+
 ## The cards
 
 Everything under `profile/` is a **build artifact that is committed to the repo**. `.github/workflows/grs.yml` runs `stats-organization/github-readme-stats-action` once per card, writes each SVG into `profile/`, and pushes the result back to the default branch — daily on a cron, or on demand via `workflow_dispatch`. The README embeds them by relative path, so the profile page serves static files instead of calling an external service on every render.

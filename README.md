@@ -1,5 +1,7 @@
 <img src="header.svg" width="500" height="250" alt="React Native Developer">
 
+[@natural_clar on X](https://x.com/natural_clar)
+
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="./profile/stats.svg">
   <img alt="Naturalclar's GitHub stats" src="./profile/stats-light.svg">

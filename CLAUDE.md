@@ -56,6 +56,15 @@ Consequences worth knowing before touching any of this:
 - **The commit step is intentionally tolerant of no-ops**: `git commit ... || exit 0` ends the step successfully when the regenerated cards are byte-identical, so a run with no diff is not a failure. Its `git add profile/*.svg` already covers any new card, so adding one needs no change there.
 - `stats` and `top-langs` are two of the types the action supports (`pin`, `wakatime`, `gist` are the others); adding one means a step per colour scheme plus an embed in the README.
 
+## The links row
+
+The X link under the cards is an `<a>` wrapping the icon `<picture>` plus the handle text, and the whole thing sits inside a `<p>`. Both constraints are load-bearing:
+
+- **The `<p>` is what puts the row on its own line.** `<picture>` and `<a>` are inline, and a blank line between raw HTML blocks does *not* introduce block-level separation — without a block parent the row flows up beside the cards. (The banner and the cards look separated only because their combined width overflows the content column; that is incidental.)
+- **No `style` attributes.** GitHub strips them from README HTML, so the icon cannot be vertically centred with CSS. It is sized to match the body text (16px) so that baseline alignment reads correctly instead.
+
+Adding another link means another `<a>` in that same `<p>`.
+
 ## Workflow
 
 Content changes are committed and pushed with git; the only automation is the card job above. Anything that renders on the profile page (README, SVG, funding config) should be eyeballed on GitHub after pushing, since there is no local check that can catch a sanitization or proxy issue.

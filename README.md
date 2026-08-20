@@ -9,12 +9,15 @@
   <img alt="Naturalclar's most used languages" src="./profile/top-langs-light.svg">
 </picture>
 
+**Links:**
+
 <p>
   <a href="https://x.com/natural_clar">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset="./x-logo.svg">
-      <img alt="@natural_clar on X" src="./x-logo-light.svg" width="24" height="24">
+      <img alt="X" src="./x-logo-light.svg" width="16" height="16">
     </picture>
+    @natural_clar
   </a>
 </p>
 

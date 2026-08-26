@@ -14,10 +14,6 @@
   <img alt="Naturalclar's most used languages" src="./profile/top-langs-light.svg">
 </picture>
 
-<p>
-  <img src="header.svg" width="400" height="200" alt="React Native Developer">
-</p>
-
 **Links:**
 
 <p>
@@ -28,6 +24,6 @@
     </picture>
     @natural_clar
   </a>
+  ·
+  <a href="https://github.com/Naturalclar/dotfiles">Dotfiles</a>
 </p>
-
-SVG credits to https://github.com/sindresorhus/css-in-readme-like-wat

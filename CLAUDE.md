@@ -9,35 +9,19 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 The repository is small enough to hold in your head:
 
 - `README.md` — the profile page body.
-- `header.svg` — the animated banner embedded by the README.
 - `profile/*.svg` — the stats and top-languages cards. **Generated, not hand-edited** (see below).
-- `typing.svg` / `typing-light.svg` — the typewriter intro line under the banner. Hand-authored (see below).
+- `typing.svg` / `typing-light.svg` — the typewriter intro line that opens the profile. Hand-authored (see below).
 - `x-logo.svg` / `x-logo-light.svg` — the X icon for the profile link. Hand-authored, unlike everything in `profile/`; they live at the root to keep that distinction obvious. Same `<picture>` pairing as the cards — the unsuffixed file is the dark-mode (light-coloured) variant.
 - `.github/workflows/grs.yml` — regenerates the cards in `profile/` and commits them.
 - `.github/FUNDING.yml` — drives the "Sponsor" button (`github: [Naturalclar]`).
 
-## header.svg
-
-`header.svg` is not a normal vector drawing. It wraps HTML in `<foreignObject>` and styles it with an inline `<style>` block — the technique from https://github.com/sindresorhus/css-in-readme-like-wat, credited at the bottom of the README. The visible text ("React Native Developer") is an `<h1>`, and the animations (`gradientBackground`, `rotate`, `fadeIn`) are CSS keyframes, so edits are CSS/HTML edits rather than path edits.
-
-Two constraints follow from how GitHub serves this:
-
-- **Everything must stay inline.** GitHub proxies the SVG as an image, so external stylesheets, fonts, or scripts will not load. Keep CSS in the embedded `<style>` block and stick to the system-font stack already declared.
-- **The README must embed it with a raw `<img>` tag**, as it does today (`<img src="header.svg" width="400" height="200">`, kept at the 2:1 ratio of its 800x400 viewBox). Markdown image syntax and inline `<svg>` markup are both sanitized differently by GitHub; the current form is the one known to animate.
-
-`foreignObject` rendering varies by browser, so confirm changes by loading `header.svg` directly in a browser *and* by looking at the pushed README on GitHub — a local Markdown preview is not representative.
-
-### The static fallback layer
-
-Because a renderer that ignores `foreignObject` would otherwise show a blank box, the file also holds a plain `<rect>` + two `<text>` lines **before** the `<foreignObject>`. They are painted underneath and hidden by the opaque gradient wherever `foreignObject` does render, so **the tagline now lives in two places** — change the `<h1>` and the `<text>` elements together, or the two renderings disagree.
-
-The fallback deliberately mirrors the real layout: the `<h1>` wraps to two lines at 800px wide, so the fallback is two lines at the same baselines, bold, with `textLength` pinning each line's width. `textLength` is what guarantees the text fits the 800px canvas whatever font the renderer actually has.
-
-To see the fallback locally, strip the `<foreignObject>` element out of a copy and open that copy — Chromium renders `foreignObject` fine, so nothing else reveals this layer.
-
 ## typing.svg
 
-The intro line under the banner is a CSS typewriter effect, animated the same way `header.svg` is — inline `<style>`, no script, embedded through `<img>`.
+The intro line at the top of the profile is a CSS typewriter effect: an inline `<style>` block, no script, embedded through `<img>` inside a `<picture>`.
+
+**Everything must stay inline.** GitHub serves the SVG as an image, so external stylesheets, fonts, or scripts will not load. Keep CSS in the embedded `<style>` block and stick to the font stack already declared — this holds for every hand-authored SVG here, not just this one.
+
+Because GitHub sanitizes Markdown image syntax and inline `<svg>` markup differently, the `<img>` embed is the form known to animate; a local Markdown preview is not representative, so check the pushed README on GitHub.
 
 The mechanism is a `<clipPath>` rectangle that scales from `scaleX(0)` to `scaleX(1)` under `steps(41, end)`, so the clip edge lands on a character boundary rather than mid-glyph, plus a caret `<rect>` translating across the same distance under the same step count. The `reveal` and `caret` keyframes share one 6s timeline — type, hold, erase, hold — so the two stay in lockstep.
 
@@ -81,12 +65,12 @@ Consequences worth knowing before touching any of this:
 
 ## The links row
 
-The X link under the cards is an `<a>` wrapping the icon `<picture>` plus the handle text, and the whole thing sits inside a `<p>`. Both constraints are load-bearing:
+The links under the cards are `<a>` elements inside one `<p>` — the X entry wraps the icon `<picture>` plus the handle text, the Dotfiles entry is plain text, separated by a `·`. Both constraints are load-bearing:
 
-- **The `<p>` is what puts the row on its own line.** `<picture>`, `<a>` and `<img>` are all inline, and a blank line between raw HTML blocks does *not* introduce block-level separation — without a block parent the row flows up beside the cards. The typing line and the banner are wrapped for the same reason; only the two card `<picture>`s are left unwrapped, deliberately, so they sit side by side.
+- **The `<p>` is what puts the row on its own line.** `<picture>`, `<a>` and `<img>` are all inline, and a blank line between raw HTML blocks does *not* introduce block-level separation — without a block parent the row flows up beside the cards. The typing line is wrapped for the same reason; only the two card `<picture>`s are left unwrapped, deliberately, so they sit side by side.
 - **No `style` attributes.** GitHub strips them from README HTML, so the icon cannot be vertically centred with CSS. It is sized to match the body text (16px) so that baseline alignment reads correctly instead.
 
-Adding another link means another `<a>` in that same `<p>`.
+Adding another link means another `<a>` in that same `<p>`, after a `·`.
 
 ## Workflow
 

@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="620" height="52" viewBox="0 0 620 52" role="img" aria-label="Hi. I'm naturalclar. Full-time developer.">
+	<style>
+		.line {
+			font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
+			font-size: 24px;
+			fill: #1f2328;
+		}
+		/* 41 characters revealed one step at a time, so the clip edge always lands on a
+		   character boundary — textLength below pins each advance to 590/41px. */
+		#reveal { animation: reveal 6s steps(41, end) infinite; }
+		.caret {
+			fill: #1f2328;
+			animation: caret 6s steps(41, end) infinite, blink 1s steps(2, start) infinite;
+		}
+		@keyframes reveal {
+			0%   { transform: scaleX(0); }
+			45%  { transform: scaleX(1); }
+			65%  { transform: scaleX(1); }
+			90%  { transform: scaleX(0); }
+			100% { transform: scaleX(0); }
+		}
+		@keyframes caret {
+			0%   { transform: translateX(0); }
+			45%  { transform: translateX(590px); }
+			65%  { transform: translateX(590px); }
+			90%  { transform: translateX(0); }
+			100% { transform: translateX(0); }
+		}
+		@keyframes blink {
+			0%, 49%   { opacity: 1; }
+			50%, 100% { opacity: 0; }
+		}
+		@media (prefers-reduced-motion: reduce) {
+			#reveal, .caret { animation: none; }
+			#reveal { transform: scaleX(1); }
+			.caret { transform: translateX(590px); }
+		}
+	</style>
+	<defs>
+		<clipPath id="typed">
+			<rect id="reveal" x="0" y="0" width="590" height="52" />
+		</clipPath>
+	</defs>
+	<g transform="translate(15,0)">
+		<text class="line" x="0" y="34" textLength="590" lengthAdjust="spacing" clip-path="url(#typed)">Hi. I'm naturalclar. Full-time developer.</text>
+		<rect class="caret" x="0" y="13" width="12" height="26" />
+	</g>
+</svg>

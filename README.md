@@ -1,5 +1,12 @@
 <img src="header.svg" width="500" height="250" alt="React Native Developer">
 
+<p>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="./typing.svg">
+    <img alt="Hi. I'm naturalclar. Full-time developer." src="./typing-light.svg" width="620" height="52">
+  </picture>
+</p>
+
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="./profile/stats.svg">
   <img alt="Naturalclar's GitHub stats" src="./profile/stats-light.svg">

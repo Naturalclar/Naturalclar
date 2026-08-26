@@ -3,7 +3,7 @@
 <p>
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="./typing.svg">
-    <img alt="Hi. I'm naturalclar. Full-time developer." src="./typing-light.svg" width="620" height="52">
+    <img alt="Hi. I'm naturalclar. Full-time developer." src="./typing-light.svg" width="768" height="64">
   </picture>
 </p>
 

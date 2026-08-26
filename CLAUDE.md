@@ -46,12 +46,12 @@ The mechanism is a `<clipPath>` rectangle that scales from `scaleX(0)` to `scale
 | | Current | What it is |
 | --- | --- | --- |
 | `steps(N)` | 41 | character count of the string |
-| `textLength` | 590 | pinned width of the `<text>` |
-| `translateX` | 590px | caret travel, equal to `textLength` |
+| `textLength` | 738 | pinned width of the `<text>` (41 chars x 18px advance at font-size 30) |
+| `translateX` | 738px | caret travel, equal to `textLength` |
 
 `textLength` is what makes the stepping exact: it forces each character's advance to `textLength / N` whatever monospace face the renderer resolves, so the reveal cannot drift out of sync with the glyphs. Changing the string without updating all three leaves the caret and the clip edge landing in the wrong places.
 
-The two files differ only in `fill`, so **edits must be applied to both** — `typing.svg` carries the dark-mode (light-coloured) text.
+The two files differ only in `fill` — neon `#05dfd7` for dark, deeper `#0b9e90` for light, because the neon tone measures 1.67:1 on white and is unreadable there. Edits must be applied to **both** — `typing.svg` carries the dark-mode (light-coloured) text.
 
 A `prefers-reduced-motion: reduce` block disables both animations and pins the line fully typed.
 

@@ -23,7 +23,7 @@ The repository is small enough to hold in your head:
 Two constraints follow from how GitHub serves this:
 
 - **Everything must stay inline.** GitHub proxies the SVG as an image, so external stylesheets, fonts, or scripts will not load. Keep CSS in the embedded `<style>` block and stick to the system-font stack already declared.
-- **The README must embed it with a raw `<img>` tag**, as it does today (`<img src="header.svg" width="500" height="250">`). Markdown image syntax and inline `<svg>` markup are both sanitized differently by GitHub; the current form is the one known to animate.
+- **The README must embed it with a raw `<img>` tag**, as it does today (`<img src="header.svg" width="400" height="200">`, kept at the 2:1 ratio of its 800x400 viewBox). Markdown image syntax and inline `<svg>` markup are both sanitized differently by GitHub; the current form is the one known to animate.
 
 `foreignObject` rendering varies by browser, so confirm changes by loading `header.svg` directly in a browser *and* by looking at the pushed README on GitHub — a local Markdown preview is not representative.
 
@@ -83,7 +83,7 @@ Consequences worth knowing before touching any of this:
 
 The X link under the cards is an `<a>` wrapping the icon `<picture>` plus the handle text, and the whole thing sits inside a `<p>`. Both constraints are load-bearing:
 
-- **The `<p>` is what puts the row on its own line.** `<picture>` and `<a>` are inline, and a blank line between raw HTML blocks does *not* introduce block-level separation — without a block parent the row flows up beside the cards. (The banner and the cards look separated only because their combined width overflows the content column; that is incidental.)
+- **The `<p>` is what puts the row on its own line.** `<picture>`, `<a>` and `<img>` are all inline, and a blank line between raw HTML blocks does *not* introduce block-level separation — without a block parent the row flows up beside the cards. The typing line and the banner are wrapped for the same reason; only the two card `<picture>`s are left unwrapped, deliberately, so they sit side by side.
 - **No `style` attributes.** GitHub strips them from README HTML, so the icon cannot be vertically centred with CSS. It is sized to match the body text (16px) so that baseline alignment reads correctly instead.
 
 Adding another link means another `<a>` in that same `<p>`.

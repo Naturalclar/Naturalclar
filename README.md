@@ -1,5 +1,3 @@
-<img src="header.svg" width="500" height="250" alt="React Native Developer">
-
 <p>
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="./typing.svg">
@@ -15,6 +13,10 @@
   <source media="(prefers-color-scheme: dark)" srcset="./profile/top-langs.svg">
   <img alt="Naturalclar's most used languages" src="./profile/top-langs-light.svg">
 </picture>
+
+<p>
+  <img src="header.svg" width="400" height="200" alt="React Native Developer">
+</p>
 
 **Links:**
 

@@ -9,7 +9,7 @@
         aria-labelledby="descId"
       >
         <title id="titleId">Naturalclar&#39;s GitHub Stats, Rank: A+</title>
-        <desc id="descId">Total Stars Earned: 586, Total Commits  (last year) : 772, Total PRs: 2347, Total Issues: 767, Contributed to (last year): 3</desc>
+        <desc id="descId">Total Stars Earned: 586, Total Commits  (last year) : 772, Total PRs: 2349, Total Issues: 767, Contributed to (last year): 3</desc>
         <style>
           .header {
             font: 600 18px 'Segoe UI', Ubuntu, Sans-Serif;
@@ -73,7 +73,7 @@
         stroke-dashoffset: 251.32741228718345;
       }
       to {
-        stroke-dashoffset: 12.901264472793253;
+        stroke-dashoffset: 12.90126447279318;
       }
     }
   
